@@ -1,9 +1,35 @@
 {
   "common": {
-    "name":"Mail and Packages Custom Card",
+    "name": "Mail and Packages",
     "version": "Version",
     "invalid_configuration": "Invalid configuration",
     "show_warning": "Show Warning",
-    "show_error": "Show Error"
+    "show_error": "Mail and Packages integration not found. Please check that it is installed and configured."
+  },
+  "tracker": {
+    "title": "Package Tracker",
+    "no_packages": "No packages being tracked",
+    "add_package": "Add Package",
+    "clear_all_delivered": "Clear All Delivered",
+    "mark_delivered": "Mark Delivered",
+    "clear": "Clear",
+    "tracking_number": "Tracking Number",
+    "carrier": "Carrier",
+    "status": {
+      "detected": "Detected",
+      "in_transit": "In Transit",
+      "out_for_delivery": "Out for Delivery",
+      "delivered": "Delivered"
+    },
+    "source": {
+      "email": "Email",
+      "manual": "Manual",
+      "carrier_email": "Carrier Email",
+      "unknown": "Unknown"
+    },
+    "first_seen": "First Seen",
+    "last_updated": "Last Updated",
+    "confirmed": "Carrier Confirmed",
+    "exception": "Exception"
   }
 }

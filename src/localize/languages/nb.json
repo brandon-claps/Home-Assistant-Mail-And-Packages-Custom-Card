@@ -1,7 +1,19 @@
 {
   "common": {
+    "name": "Post og pakker",
     "version": "Versjon",
-    "invalid_configuration": "Ikke gyldig konfiguration",
-    "show_warning": "Vis advarsel"
+    "invalid_configuration": "Ikke gyldig konfigurasjon",
+    "show_warning": "Vis advarsel",
+    "show_error": "Post og pakker integrasjon ikke funnet."
+  },
+  "tracker": {
+    "title": "Pakkesporing",
+    "no_packages": "Ingen pakker spores",
+    "add_package": "Legg til pakke",
+    "clear_all_delivered": "Fjern alle leverte",
+    "mark_delivered": "Merk som levert",
+    "clear": "Fjern",
+    "tracking_number": "Sporingsnummer",
+    "carrier": "Transportør"
   }
 }
