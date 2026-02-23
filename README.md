@@ -11,6 +11,7 @@ This package includes **two cards** in a single JS bundle:
 
 - [@moralmunky](https://github.com/moralmunky) — Original author
 - [@firstof9](https://github.com/firstof9) — Major contributions
+- [@brandon-claps](https://github.com/brandon-claps) — Package Tracker card, Lit 3.x migration, full carrier support
   <br/>
   <a href="https://www.buymeacoffee.com/Moralmunky" target="_blank"><img src="/docs/coffee.png" alt="Buy Us A Coffee" height="51px" width="217px" /></a>
 
