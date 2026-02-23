@@ -24,8 +24,8 @@ This package includes **two cards** in a single JS bundle:
 ### HACS (Recommended)
 
 1. Have [HACS](https://hacs.xyz) installed
-2. Add `https://github.com/moralmunky/Home-Assistant-Mail-And-Packages-Custom-Card` as a custom repository (Type: **Lovelace**)
-3. Search for "Mail and Packages" in the Frontend section and install
+2. Add `https://github.com/moralmunky/Home-Assistant-Mail-And-Packages-Custom-Card` as a custom repository (Type: **Dashboard**)
+3. Search for "Mail and Packages" in the Dashboard section and install
 4. Clear browser cache if needed
 
 ### Manual
