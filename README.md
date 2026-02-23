@@ -85,7 +85,7 @@ show_usps_camera: true
 | `show_amazon_camera` | boolean | Show Amazon delivery camera feed |
 | `amazon_url` | string | Custom Amazon tracking URL |
 | `entity_delivery_message` | string | Entity ID of a template sensor for delivery summary text |
-| `show_registry_totals` | boolean | Show Package Registry totals overlay |
+| `show_registry_totals` | boolean | Show Package Registry totals (tracked, in transit, delivered counts) below carrier badges |
 
 ## Card 2: Package Tracker (Full Page)
 
@@ -124,6 +124,7 @@ collapsed_delivered: true
 - **Carrier links**: "Track on [Carrier]" button opens the carrier's tracking website
 - **Exception indicators**: Red warning icon on packages with delivery exceptions
 - **Responsive**: Works on both desktop and mobile, in regular card or panel mode
+- **Localized**: English and Norwegian (Bokm&aring;l) included; extensible via JSON language files
 
 ### Configuration Options
 
@@ -136,6 +137,14 @@ collapsed_delivered: true
 | `show_delivered` | boolean | `true` | Show delivered packages section |
 | `show_detected` | boolean | `true` | Show detected packages section |
 | `collapsed_delivered` | boolean | `true` | Collapse delivered section by default |
+
+## Localization
+
+Both cards support localization. The active language is determined by the `selectedLanguage` key in your browser's `localStorage` (set automatically by Home Assistant based on your profile language).
+
+**Included languages:** English (`en`), Norwegian Bokm&aring;l (`nb`)
+
+To add a new language, create a JSON file in `src/localize/languages/` following the structure of `en.json`, then import it in `src/localize/localize.ts`.
 
 ## Delivery Message Sensor
 

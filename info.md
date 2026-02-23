@@ -27,6 +27,8 @@ This is a major rewrite. Remove the current card from your dashboard and add a n
 - Package Registry service call buttons: Add Package, Mark Delivered, Clear, Clear All Delivered
 - Status-grouped display with collapsible sections
 - Expandable package detail rows with carrier links
+- Package Registry totals overlay on summary card (`show_registry_totals` option)
+- Full localization support (English and Norwegian Bokm&aring;l)
 - Null-safety for all entity state access (no more crashes when sensors are missing)
 - Data-driven carrier rendering (centralized carrier definitions)
 - Modernized tech stack: Lit 3.x, TypeScript 5.x, Rollup 4.x
@@ -54,7 +56,8 @@ USPS, UPS, FedEx, Amazon, DHL, Canada Post, Hermes, Royal Mail, Australia Post, 
 ### Package Tracker Features
 
 - Packages grouped by status: Out for Delivery, In Transit, Detected, Delivered
-- Expandable detail rows with full metadata
+- Expandable detail rows with full metadata and carrier links
 - Service call buttons: Add Package, Mark Delivered, Clear, Clear All Delivered
+- Localized UI (English and Norwegian)
 - Best used in Panel mode for a full-page experience
 - Requires Package Registry enabled in the integration

@@ -103,7 +103,7 @@ export class MailandpackagesCard extends LitElement {
     return html`
       <ha-card
         tabindex="0"
-        .label=${`Mail and Packages: ${this.config.entity || 'No Entity Defined'}`}
+        .label=${'Mail and Packages'}
         class="mail-and-packages"
       >
         <div class="header">
@@ -134,6 +134,8 @@ export class MailandpackagesCard extends LitElement {
           })}
           ${this._renderExceptions()}
         </div>
+
+        ${this.config.show_registry_totals ? this._renderRegistryTotals() : nothing}
 
         ${this.config.show_amazon_camera ? this._renderCamera('camera.mail_amazon_delivery_camera') : nothing}
 
@@ -207,6 +209,36 @@ export class MailandpackagesCard extends LitElement {
       `);
     }
     return parts.length ? html`${parts}` : nothing;
+  }
+
+  private _renderRegistryTotals(): TemplateResult | typeof nothing {
+    const tracked = entityState(this.hass, 'sensor.mail_packages_tracked');
+    const inTransit = entityState(this.hass, 'sensor.mail_packages_in_transit_registry');
+    const delivered = entityState(this.hass, 'sensor.mail_packages_delivered_registry');
+    if (tracked === undefined) return nothing;
+    return html`
+      <div class="registryTotals">
+        <div class="registryBadge">
+          <ha-icon icon="mdi:package-variant"></ha-icon>
+          <span class="registryCount">${tracked}</span>
+          <span class="registryLabel">Tracked</span>
+        </div>
+        ${inTransit !== undefined ? html`
+          <div class="registryBadge">
+            <ha-icon icon="mdi:truck-fast" style="color: #ff9800"></ha-icon>
+            <span class="registryCount">${inTransit}</span>
+            <span class="registryLabel">In Transit</span>
+          </div>
+        ` : nothing}
+        ${delivered !== undefined ? html`
+          <div class="registryBadge">
+            <ha-icon icon="mdi:package-variant-closed-check" style="color: #4caf50"></ha-icon>
+            <span class="registryCount">${delivered}</span>
+            <span class="registryLabel">Delivered</span>
+          </div>
+        ` : nothing}
+      </div>
+    `;
   }
 
   private _renderCamera(entityId: string): TemplateResult | typeof nothing {
@@ -305,6 +337,32 @@ export class MailandpackagesCard extends LitElement {
         width: auto;
         margin-right: 1rem;
         border-radius: 50%;
+      }
+      .mail-and-packages .registryTotals {
+        display: flex;
+        justify-content: space-evenly;
+        padding: 0.5rem 1rem;
+        border-top: 1px solid var(--divider-color, rgba(0,0,0,.12));
+        margin: 0 1rem;
+      }
+      .mail-and-packages .registryBadge {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+      }
+      .mail-and-packages .registryBadge ha-icon {
+        --mdc-icon-size: 24px;
+        color: var(--primary-text-color);
+      }
+      .mail-and-packages .registryCount {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+      .mail-and-packages .registryLabel {
+        font-size: 0.65rem;
+        color: var(--secondary-text-color);
+        text-transform: uppercase;
       }
       .mail-and-packages .MailImg {
         position: relative;

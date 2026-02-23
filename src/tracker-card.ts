@@ -7,13 +7,13 @@ import './tracker-editor';
 import type { MailAndPackagesTrackerConfig, RegistryPackage } from './types';
 import { CARD_VERSION, IMG_BASE } from './const';
 import { findCarrierByRegistryName, CARRIERS } from './carriers';
+import { localize } from './localize/localize';
 import {
   groupPackagesByStatus,
   formatTimeAgo,
   formatDate,
   truncateTracking,
   STATUS_ORDER,
-  STATUS_LABELS,
   STATUS_ICONS,
   STATUS_COLORS,
   StatusGroup,
@@ -46,9 +46,9 @@ export class MailandpackagesTracker extends LitElement {
   @state() private newCarrier = 'unknown';
 
   public setConfig(config: MailAndPackagesTrackerConfig): void {
-    if (!config) throw new Error('Invalid configuration');
+    if (!config) throw new Error(localize('common.invalid_configuration'));
     this.config = {
-      name: 'Package Tracker',
+      name: localize('tracker.title'),
       registry_entity: 'sensor.mail_packages_tracked',
       show_add_package: true,
       show_clear_all: true,
@@ -57,9 +57,12 @@ export class MailandpackagesTracker extends LitElement {
       collapsed_delivered: true,
       ...config,
     };
+    // Reset collapsed state based on config
+    const collapsed = new Set<string>();
     if (this.config.collapsed_delivered) {
-      this.collapsedSections.add('delivered');
+      collapsed.add('delivered');
     }
+    this.collapsedSections = collapsed;
   }
 
   protected render(): TemplateResult | void {
@@ -72,8 +75,8 @@ export class MailandpackagesTracker extends LitElement {
           <div class="tracker-card">
             <div class="empty-state">
               <ha-icon icon="mdi:package-variant-closed-remove"></ha-icon>
-              <p>Package Registry not found.</p>
-              <p class="hint">Enable Package Registry in the Mail and Packages integration settings.</p>
+              <p>${localize('tracker.registry_not_found')}</p>
+              <p class="hint">${localize('tracker.registry_hint')}</p>
             </div>
           </div>
         </ha-card>
@@ -100,7 +103,7 @@ export class MailandpackagesTracker extends LitElement {
           ${activePackages.length === 0 ? html`
             <div class="empty-state">
               <ha-icon icon="mdi:package-variant-closed"></ha-icon>
-              <p>No packages being tracked</p>
+              <p>${localize('tracker.no_packages')}</p>
             </div>
           ` : nothing}
           ${this.showAddForm ? this._renderAddForm() : nothing}
@@ -115,19 +118,19 @@ export class MailandpackagesTracker extends LitElement {
         <div class="tracker-title">
           <h2>${this.config.name}</h2>
           <div class="header-badges">
-            <span class="badge active">${active} active</span>
-            ${delivered > 0 ? html`<span class="badge delivered">${delivered} delivered</span>` : nothing}
+            <span class="badge active">${active} ${localize('tracker.status.active')}</span>
+            ${delivered > 0 ? html`<span class="badge delivered">${delivered} ${localize('tracker.status.delivered_count')}</span>` : nothing}
           </div>
         </div>
         <div class="header-actions">
           ${this.config.show_add_package ? html`
             <button class="action-btn primary" @click=${() => { this.showAddForm = !this.showAddForm; }}>
-              <ha-icon icon="mdi:plus"></ha-icon> Add
+              <ha-icon icon="mdi:plus"></ha-icon> ${localize('tracker.add')}
             </button>
           ` : nothing}
           ${this.config.show_clear_all ? html`
             <button class="action-btn" @click=${this._clearAllDelivered}>
-              <ha-icon icon="mdi:broom"></ha-icon> Clear Delivered
+              <ha-icon icon="mdi:broom"></ha-icon> ${localize('tracker.clear_delivered')}
             </button>
           ` : nothing}
         </div>
@@ -143,7 +146,7 @@ export class MailandpackagesTracker extends LitElement {
       <div class="status-section">
         <div class="status-header" @click=${() => this._toggleSection(status)}>
           <ha-icon icon="${STATUS_ICONS[status]}" style="color: ${STATUS_COLORS[status]}"></ha-icon>
-          <span class="status-label">${STATUS_LABELS[status]}</span>
+          <span class="status-label">${localize(`tracker.status.${status}`)}</span>
           <span class="status-count" style="background: ${STATUS_COLORS[status]}">${packages.length}</span>
           <ha-icon class="chevron ${collapsed ? '' : 'open'}" icon="mdi:chevron-down"></ha-icon>
         </div>
@@ -184,44 +187,44 @@ export class MailandpackagesTracker extends LitElement {
           <div class="package-details" @click=${(e: Event) => e.stopPropagation()}>
             <div class="detail-grid">
               <div class="detail-item">
-                <span class="detail-label">Carrier</span>
+                <span class="detail-label">${localize('tracker.carrier')}</span>
                 <span class="detail-value">
                   ${carrier?.name || pkg.carrier}
-                  ${pkg.carrier_confirmed ? html`<span class="confirmed-badge">Confirmed</span>` : nothing}
+                  ${pkg.carrier_confirmed ? html`<span class="confirmed-badge">${localize('tracker.confirmed')}</span>` : nothing}
                 </span>
               </div>
               <div class="detail-item">
-                <span class="detail-label">Source</span>
+                <span class="detail-label">${localize('tracker.source.label')}</span>
                 <span class="detail-value">${pkg.source}${pkg.source_from ? html` &mdash; ${pkg.source_from}` : nothing}</span>
               </div>
               <div class="detail-item">
-                <span class="detail-label">First Seen</span>
+                <span class="detail-label">${localize('tracker.first_seen')}</span>
                 <span class="detail-value">${formatDate(pkg.first_seen)}</span>
               </div>
               <div class="detail-item">
-                <span class="detail-label">Last Updated</span>
+                <span class="detail-label">${localize('tracker.last_updated')}</span>
                 <span class="detail-value">${formatDate(pkg.last_updated)}</span>
               </div>
               ${pkg.exception ? html`
                 <div class="detail-item">
-                  <span class="detail-label">Exception</span>
-                  <span class="detail-value exception-text">Delivery exception reported</span>
+                  <span class="detail-label">${localize('tracker.exception')}</span>
+                  <span class="detail-value exception-text">${localize('tracker.exception_text')}</span>
                 </div>
               ` : nothing}
             </div>
             <div class="package-actions">
               ${carrier?.url ? html`
                 <a class="action-btn link" href="${carrier.url}" target="_blank">
-                  <ha-icon icon="mdi:open-in-new"></ha-icon> Track on ${carrier.name}
+                  <ha-icon icon="mdi:open-in-new"></ha-icon> ${localize('tracker.track_on')} ${carrier.name}
                 </a>
               ` : nothing}
               ${pkg.status !== 'delivered' ? html`
                 <button class="action-btn success" @click=${() => this._markDelivered(pkg.tracking_number)}>
-                  <ha-icon icon="mdi:check"></ha-icon> Mark Delivered
+                  <ha-icon icon="mdi:check"></ha-icon> ${localize('tracker.mark_delivered')}
                 </button>
               ` : nothing}
               <button class="action-btn danger" @click=${() => this._clearPackage(pkg.tracking_number)}>
-                <ha-icon icon="mdi:close"></ha-icon> Clear
+                <ha-icon icon="mdi:close"></ha-icon> ${localize('tracker.clear')}
               </button>
             </div>
           </div>
@@ -231,15 +234,15 @@ export class MailandpackagesTracker extends LitElement {
   }
 
   private _renderAddForm(): TemplateResult {
-    const carrierOptions = [{ id: 'unknown', name: 'Unknown' }, ...CARRIERS];
+    const carrierOptions = [{ id: 'unknown', name: localize('tracker.source.unknown') }, ...CARRIERS];
     return html`
       <div class="add-package-form">
-        <h3>Add Package</h3>
+        <h3>${localize('tracker.add_package')}</h3>
         <div class="form-row">
           <input
             type="text"
             class="form-input"
-            placeholder="Tracking number"
+            placeholder="${localize('tracker.tracking_placeholder')}"
             .value=${this.newTrackingNumber}
             @input=${(e: InputEvent) => { this.newTrackingNumber = (e.target as HTMLInputElement).value; }}
           />
@@ -249,10 +252,10 @@ export class MailandpackagesTracker extends LitElement {
         </div>
         <div class="form-actions">
           <button class="action-btn primary" @click=${this._addPackage} ?disabled=${!this.newTrackingNumber.trim()}>
-            <ha-icon icon="mdi:plus"></ha-icon> Add
+            <ha-icon icon="mdi:plus"></ha-icon> ${localize('tracker.add')}
           </button>
           <button class="action-btn" @click=${() => { this.showAddForm = false; this.newTrackingNumber = ''; }}>
-            Cancel
+            ${localize('tracker.cancel')}
           </button>
         </div>
       </div>

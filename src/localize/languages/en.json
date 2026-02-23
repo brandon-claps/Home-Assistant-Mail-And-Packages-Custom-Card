@@ -9,27 +9,38 @@
   "tracker": {
     "title": "Package Tracker",
     "no_packages": "No packages being tracked",
+    "registry_not_found": "Package Registry not found.",
+    "registry_hint": "Enable Package Registry in the Mail and Packages integration settings.",
     "add_package": "Add Package",
+    "add": "Add",
+    "cancel": "Cancel",
+    "clear_delivered": "Clear Delivered",
     "clear_all_delivered": "Clear All Delivered",
     "mark_delivered": "Mark Delivered",
     "clear": "Clear",
+    "track_on": "Track on",
     "tracking_number": "Tracking Number",
+    "tracking_placeholder": "Tracking number",
     "carrier": "Carrier",
-    "status": {
-      "detected": "Detected",
-      "in_transit": "In Transit",
-      "out_for_delivery": "Out for Delivery",
-      "delivered": "Delivered"
-    },
     "source": {
+      "label": "Source",
       "email": "Email",
       "manual": "Manual",
       "carrier_email": "Carrier Email",
       "unknown": "Unknown"
     },
+    "status": {
+      "detected": "Detected",
+      "in_transit": "In Transit",
+      "out_for_delivery": "Out for Delivery",
+      "delivered": "Delivered",
+      "active": "active",
+      "delivered_count": "delivered"
+    },
     "first_seen": "First Seen",
     "last_updated": "Last Updated",
-    "confirmed": "Carrier Confirmed",
-    "exception": "Exception"
+    "confirmed": "Confirmed",
+    "exception": "Exception",
+    "exception_text": "Delivery exception reported"
   }
 }
