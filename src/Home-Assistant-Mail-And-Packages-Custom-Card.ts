@@ -294,49 +294,45 @@ export class MailandpackagesCard extends LitElement {
         display: flex;
         flex-flow: row wrap;
         justify-content: space-evenly;
+        align-items: flex-start;
       }
       .mail-and-packages .packagesTotals { margin-bottom: 1rem; }
       .mail-and-packages .deliveryTotals {
-        position: absolute;
-        bottom: -1.5rem;
-        width: 100%;
+        padding: 0.75rem 0;
       }
-      .mail-and-packages .deliveryTotals .status { flex: 0 0 auto; }
       .mail-and-packages .status {
         box-sizing: border-box;
-        flex: 0 0 15%;
-        width: 2.5rem;
-        height: 2.5rem;
-        margin: 1rem;
+        flex: 0 0 auto;
+        margin: 0.5rem;
         font-size: 1.5rem;
         text-align: center;
       }
       .mail-and-packages .status .statusDetails {
-        width: 2.5rem;
-        height: 2.5rem;
-        margin: auto;
-        width: 50%;
+        position: relative;
+        display: inline-block;
       }
       .mail-and-packages .packagesTotals .statusCount,
       .mail-and-packages .amazon .statusCount,
       .mail-and-packages .deliveryTotals .statusCount {
         background-color: var(--secondary-background-color);
         border-radius: 50%;
-        font-size: 1rem;
-        position: relative;
-        bottom: 1rem;
-        right: -1.5rem;
-        line-height: 1.5rem;
-        width: 1.5rem;
-        height: 1.5rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        position: absolute;
+        bottom: -0.25rem;
+        right: -0.5rem;
+        line-height: 1.25rem;
+        width: 1.25rem;
+        height: 1.25rem;
       }
       .mail-and-packages .packagesTotals img,
       .mail-and-packages .amazon img,
       .mail-and-packages .deliveryTotals img {
         height: 2.5rem;
-        width: auto;
-        margin-right: 1rem;
+        width: 2.5rem;
+        object-fit: contain;
         border-radius: 50%;
+        display: block;
       }
       .mail-and-packages .registryTotals {
         display: flex;
